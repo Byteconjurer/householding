@@ -1,7 +1,7 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Card } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { chores } from '../components/chores';
@@ -19,15 +19,18 @@ export default function HouseholdScreen({ navigation }: HouseholdProps) {
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           {chores.map((chore, index) => (
-            <Card
-              key={index}
-              style={styles.choreContainer}
-              onPress={() => navigation.navigate('Chore', { id: chore.id })}
-            >
-              <View>
-                <Text style={styles.choreName}>CHORE: {chore.name}</Text>
-              </View>
-            </Card>
+            <Pressable style={styles.chorePressable}>
+              <Card
+                key={index}
+                style={styles.choreInfo}
+                onPress={() => navigation.navigate('Chore', { id: chore.id })}
+              >
+                <View style={styles.textView}>
+                  <Text style={styles.choreName}>CHORE:</Text>
+                  <Text>{chore.name}</Text>
+                </View>
+              </Card>
+            </Pressable>
           ))}
         </ScrollView>
       </View>
@@ -46,8 +49,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
   },
-  choreContainer: {
-    width: '95%',
+  choreInfo: {
     justifyContent: 'center',
     height: 50,
     marginBottom: 10,
@@ -57,5 +59,14 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     fontSize: 22,
     fontWeight: 'bold',
+  },
+  textView: {
+    width: '95%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  chorePressable: {
+    width: '95%',
   },
 });
