@@ -18,10 +18,9 @@ export default function HouseholdScreen({ navigation }: HouseholdProps) {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-          {chores.map((chore, index) => (
-            <Pressable style={styles.chorePressable}>
+          {chores.map((chore) => (
+            <Pressable style={styles.chorePressable} key={chore.id}>
               <Card
-                key={index}
                 style={styles.choreInfo}
                 onPress={() => navigation.navigate('Chore', { id: chore.id })}
               >
